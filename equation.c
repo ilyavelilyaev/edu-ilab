@@ -94,20 +94,20 @@ double *sort(double *answers) {
 	return answersSorted;
 }
 
-bool repeat() {
-	bool s = true;
+int repeat() {
+	int s = 1;
 	int p = -1;
 	while ((p != 1) && (p != 2)) {
 		printf("Do you want to solve one more equation? \n 1 - YES \n 2 - NO \n");
 		scanf("%d", &p);
-		if (p == 1)	s = true; 
-		if (p == 2)	s = false;
+		if (p == 1)	s = 1; 
+		if (p == 2)	s = 0;
 	}
 	return s;
 }
 
 int main() {
-	bool s = true;
+	int s = 1;
 	while (s) {
 		double *inp = (double *)malloc((POWER_OF_EQUATION + 1) * sizeof(double));
 		inp = input();
