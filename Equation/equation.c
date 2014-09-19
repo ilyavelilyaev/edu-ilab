@@ -44,11 +44,14 @@ double *solve (double *inp) {
 }
 
 double *input () {
+	printf("Enter factors a, b, c in equation of form ax^2 + bx + c = 0\n");
 	double *inp = (double *)malloc((POWER_OF_EQUATION + 1) * sizeof(double));
+	int k = 0, a = 0;
 	for (int i = 0; i < POWER_OF_EQUATION + 1; i++)
 	{
-		scanf("%lg", &inp[i]);
+		scanf("%lg", &inp[i]);	
 	}
+	
 	return inp;
 }
 
