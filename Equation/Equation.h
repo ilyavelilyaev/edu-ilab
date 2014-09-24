@@ -6,14 +6,17 @@
 //  Copyright (c) 2014 Ilya Velilyaev. All rights reserved.
 //
 
-#ifndef Equation_equation_h
-#define Equation_equation_h
+#ifndef EQUATION_EQUATION_H
+#define EQUATION_EQUATION_H
 
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <assert.h>
 
 #define POWER_OF_EQUATION 2
+
+#define ERROR_PRINT(a) ((a) ? 0 : printf("\nError\n%s in incorrect\nline:%d\n\n", #a, __LINE__));
 
 enum ERR_ENUM_TYPE {
     NO_ERROR,

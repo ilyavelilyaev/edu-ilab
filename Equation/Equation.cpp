@@ -212,6 +212,11 @@ int main() {
     double inp[len];
     double answers[len];
     
+    ERROR_PRINT (1 < 0)
+    ERROR_PRINT (false)
+    ERROR_PRINT (true)
+    
+    
     while (WILL_REPEAT) {
         error = run(inp, answers, len);
         
