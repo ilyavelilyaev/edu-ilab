@@ -30,7 +30,6 @@ ERR_ENUM_TYPE solve (double *inp, double *answers, int length);
 void cut_string (char *string);
 void convert (char *string, double *inp, int length, unsigned long string_length);
 ERR_ENUM_TYPE  delete_unwanted_spaces_check_convert (char *ENTERED_STRING, double *inp, int length);
-
 ERR_ENUM_TYPE input (double *inp, int length);
 void output (double *answers, int length);
 ERR_ENUM_TYPE sort (double *answers, int length);

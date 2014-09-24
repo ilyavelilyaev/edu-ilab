@@ -86,7 +86,7 @@ ERR_ENUM_TYPE  delete_unwanted_spaces_check_convert (char *ENTERED_STRING, doubl
     int COUNT_OF_ENTERED_FACTORS = 1;
     
     for (int i = 0; i < strlen(ENTERED_STRING) - 1; i++) {
-        if ((ENTERED_STRING[i] < 48 || ENTERED_STRING[i] > 57) && ENTERED_STRING[i] != 46 && ENTERED_STRING[i] != 32) return ENTERED_NOT_NUMBERS;   //symbol is not equal to number, space and dot
+        if ((ENTERED_STRING[i] < 48 || ENTERED_STRING[i] > 57) && ENTERED_STRING[i] != 46 && ENTERED_STRING[i] != 32 && ENTERED_STRING[i] != '-') return ENTERED_NOT_NUMBERS;   //symbol is not equal to number, space and dot
         
         if (ENTERED_STRING[i] == 32) COUNT_OF_ENTERED_FACTORS ++;
     }
@@ -122,11 +122,13 @@ ERR_ENUM_TYPE input (double *inp, int length) {
 void output (double *answers, int length) {
     if (answers[0] != 0)
     {
+        if (answers[1] == 0) answers[1] = 0;
         printf("%lg\n", answers[1]);
         for (int i = 2; i < answers[0] + 1; i++)
         {
             if (answers[i] != answers[i - 1])
             {
+                if (answers[i] == 0) answers[i] = 0;
                 printf("%lg\n", answers[i]);
             }
             
