@@ -9,7 +9,10 @@
 #include "Equation.h"
 
 ERR_ENUM_TYPE solve1or2power (double *inp, double *answers, int length) {
-    if ((inp[0] == 0) && (inp[1] == 0)) return NOT_AN_EQUATION;
+    if ((inp[0] == 0) && (inp[1] == 0)) {
+        printf("%d line ",__LINE__);
+        return NOT_AN_EQUATION;
+    }
     else {
         if (inp[0] == 0) {
             answers[0] = 1;
@@ -21,6 +24,7 @@ ERR_ENUM_TYPE solve1or2power (double *inp, double *answers, int length) {
                 answers[1] = (-inp[1] + sqrt(discriminant)) / (2 * inp[0]);
                 answers[2] = (-inp[1] - sqrt(discriminant)) / (2 * inp[0]);
             } else {
+                printf("%d line ",__LINE__);
                 return DISCRIMINANT_LESS_THAN_ZERO;
             }
         }
@@ -29,7 +33,10 @@ ERR_ENUM_TYPE solve1or2power (double *inp, double *answers, int length) {
 }
 
 ERR_ENUM_TYPE solve (double *inp, double *answers, int length) {
-    if (POWER_OF_EQUATION > 2) return FUNCTION_NOT_IMPLEMENTED;
+    if (POWER_OF_EQUATION > 2) {
+        printf("%d line ",__LINE__);
+        return FUNCTION_NOT_IMPLEMENTED;
+    }
     else return solve1or2power(inp, answers, length);
     return NO_ERROR;
 }
@@ -72,13 +79,18 @@ ERR_ENUM_TYPE  delete_unwanted_spaces_check_convert (char *ENTERED_STRING, doubl
     int COUNT_OF_ENTERED_FACTORS = 1;
     
     for (int i = 0; i < strlen(ENTERED_STRING) - 1; i++) {
-        if ((ENTERED_STRING[i] < 48 || ENTERED_STRING[i] > 57) && ENTERED_STRING[i] != 46 && ENTERED_STRING[i] != 32 && ENTERED_STRING[i] != '-') return ENTERED_NOT_NUMBERS;   //symbol is not equal to number, space and dot
+        if ((ENTERED_STRING[i] < 48 || ENTERED_STRING[i] > 57) && ENTERED_STRING[i] != 46 && ENTERED_STRING[i] != 32 && ENTERED_STRING[i] != '-') {
+            printf("%d line ",__LINE__);
+            return ENTERED_NOT_NUMBERS;
+        } //symbol is not equal to number, space and dot
         
         if (ENTERED_STRING[i] == 32) COUNT_OF_ENTERED_FACTORS ++;
     }
     
-    if (COUNT_OF_ENTERED_FACTORS != length) return NOT_EXACT_NUMBER_OF_FACTORS_ENTERED;
-    
+    if (COUNT_OF_ENTERED_FACTORS != length) {
+        printf("%d line ",__LINE__);
+        return NOT_EXACT_NUMBER_OF_FACTORS_ENTERED;
+    }
     convert(ENTERED_STRING, inp, length, strlen(ENTERED_STRING));
     
     return NO_ERROR;
