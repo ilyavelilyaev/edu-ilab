@@ -29,11 +29,7 @@ CALC_ERR_TYPE calculate (FILE *FilePtr, stack_element_type *result);
 
 void errorPrinter (CALC_ERR_TYPE error);
 
-CALC_ERR_TYPE sum (stack_type *stack);
-CALC_ERR_TYPE difference (stack_type *stack);
-CALC_ERR_TYPE multiply (stack_type *stack);
-CALC_ERR_TYPE divide (stack_type *stack);
-CALC_ERR_TYPE power (stack_type *stack);
+
 
 CALC_ERR_TYPE makeOperation (int operand, stack_type *stack);
 

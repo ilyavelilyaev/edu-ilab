@@ -7,15 +7,26 @@
 //
 
 #include "calc.h"
+#include <errno.h>
 
-#define FILE_NAME_PATH "./input.txt"
 
-int main() {
+int main(int argc, char *argv[]) {
+    if (argc > 2) {
+        printf("ERROR! Too many args\n");
+        return 1; //too many args
+    }
+    if (argc < 2) {
+        printf("ERROR! enter name of file in argument\n");
+        return 2; //no args
+    }
     FILE *filePtr;
-    filePtr = fopen(FILE_NAME_PATH, "r");
+    filePtr = fopen(argv[1], "r");
+    if (filePtr == NULL) {
+        perror("Error");
+    }
     stack_element_type result = 0;
-    calculate(filePtr, &result);
-    printf("%lf\n", result);
+    CALC_ERR_TYPE error = calculate(filePtr, &result);
+    if (error == CALC_NO_ERR) printf("%lf\n", result);
     fclose(filePtr);
     return 0;
 }
