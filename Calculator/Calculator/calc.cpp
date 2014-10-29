@@ -26,6 +26,7 @@ CALC_ERR_TYPE makeOperation (int operand, stack_type *stack) {
             temp2 *= temp1;
             break;
         case '/':
+            if (temp1 == 0) return DEVISION_BY_ZERO;
             temp2 /= temp1;
             break;
         case '^':
