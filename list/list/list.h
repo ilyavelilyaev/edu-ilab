@@ -16,6 +16,7 @@
 enum LIST_ERR_TYPE {
     NO_ERR,
     NULL_POINTER,
+    EMPTY_LIST,
 };
 
 class Type {
@@ -37,9 +38,9 @@ public:
     Node *head;
     List();
     LIST_ERR_TYPE push(Type *newItem);
-    LIST_ERR_TYPE pop();
-    LIST_ERR_TYPE insert();
-    LIST_ERR_TYPE withdraw();
+    LIST_ERR_TYPE pop(Type *poppedItem);
+   // LIST_ERR_TYPE insert();
+    //LIST_ERR_TYPE withdraw();
     ~List();
 };
 

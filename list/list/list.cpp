@@ -15,7 +15,8 @@ List::List() {
 }
 
 List::~List() {
-    Node *node = head->next;
+    Node *node = NULL;
+    if (head != NULL) node = head->next;
     Node *node1 = head;
     while (node != NULL) {
         free(node1);
@@ -42,3 +43,18 @@ LIST_ERR_TYPE List::push(Type *newItem) {
     return NO_ERR;
 }
 
+LIST_ERR_TYPE List::pop(Type *poppedItem) {
+    if (poppedItem == NULL) return NULL_POINTER;
+    if (length == 0) return EMPTY_LIST;
+    *poppedItem = head->value;
+    if (length > 1) {
+        head = head->next;
+        free(head->prev);
+        head->prev = NULL;
+    } else {
+        free(head);
+    }
+    
+    length--;
+    return NO_ERR;
+}
