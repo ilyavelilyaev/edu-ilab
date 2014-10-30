@@ -7,9 +7,17 @@
 //
 
 #include <iostream>
+#include "list.h"
 
 int main(int argc, const char * argv[]) {
+    List x;
+    Type a;
     
-    std::cout << "Hello, World!\n";
+    for (long long i = 0; i<=10000000; i++){
+        if (i % 1000 == 0) std::cout << i << std::endl;
+        a.number = i;
+        x.push(&a);
+    }
+
     return 0;
 }
