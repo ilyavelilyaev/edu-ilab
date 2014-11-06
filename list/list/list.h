@@ -11,38 +11,36 @@
 
 #include <cstdio>
 #include <cstdlib>
-#define STR_SIZE 1000
-
-enum LIST_ERR_TYPE {
-    NO_ERR,
-    NULL_POINTER,
-    EMPTY_LIST,
-};
-
-class Type {
-public:
-    long long number;
-    char a[STR_SIZE];
-};
+#include <iostream>
 
 class Node {
 public:
-    Type value;
+    int value;
     Node *next;
     Node *prev;
 };
 
 class List {
+private:
+    long long size_of_list;
+    Node *front_node;
+    Node *back_node;
 public:
-    long long length;
-    Node *head;
     List();
-    LIST_ERR_TYPE push(Type *newItem);
-    LIST_ERR_TYPE pop(Type *poppedItem);
-   // LIST_ERR_TYPE insert();
-    //LIST_ERR_TYPE withdraw();
+    void push_front(const int &newItem);
+    void push_back(const int &newItem);
+    void pop_front();
+    void pop_back();
+    int& front();
+    int& back();
+    bool empty();
+    long long size();
+    void insert(long long position, const int &val); //position is counting from front
+    void erase(long long position);
+    void clear();
+    int& operator[](long long position);
+    List& operator=(List &x);
     ~List();
 };
-
 
 #endif

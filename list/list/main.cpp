@@ -6,25 +6,58 @@
 //  Copyright (c) 2014 Ilya Velilyaev. All rights reserved.
 //
 
-#include <iostream>
 #include "list.h"
 
 int main(int argc, const char * argv[]) {
     List x;
-    Type a;
-    
-    for (long long i = 0; i <= 5000000; i++){
-        if (i % 1000 == 0) std::cout << i << std::endl;
-        a.number = i;
-        x.push(&a);
+    for (int i = 0; i < 500000; i++) {
+        x.push_front(i);
+        x.push_back(i);
     }
     
-    for (long long i = 0; i <= 10000; i++) {
-        x.pop(&a);
-        if (i % 1000 == 0) std::cout << a.number << std::endl;
+    for (long long i = 0; i < x.size(); i++) {
+        std::cout << x[i] << std::endl;
+    }
+    std::cout << "front: " << x.front() << " back: " << x.back() << std::endl;
+    for (int i = 0; i < 10000; i++) {
+        std::cout << "front: " << x.front() << std::endl;
+        x.pop_front();
+    }
+    for (int i = 0; i < 10000; i++) {
+        std::cout << "back: " << x.back() << std::endl;
+        x.pop_back();
     }
     
+    if (x.empty()) std::cout << "empty" << std::endl;
+    else std::cout << "not empty" << std::endl;
     
-    std::cout << "Cleaning memory... Please wait.\n";
+    x.clear();
+    
+    if (x.empty()) std::cout << "now it is empty" << std::endl;
+    else std::cout << "not empty" << std::endl;
+    
+    for (int i = 0; i < 6; i++) {
+        x.push_back(i);
+    }
+    
+    int a = 10;
+    x.insert(3, a);
+    
+    for (int i = 0; i < x.size(); i++) {
+        std::cout << x[i] << " ";
+    }
+    
+    List x1; //= x;
+    
+    x1 = x;
+    
+    std::cout << "\n Now new List x1" << std::endl;
+    
+    for (int i = 0; i < x.size(); i++) {
+        std::cout << x1[i] << " ";
+    }
+    
+    std::cout << "\nended testing\n";
+    x.clear();
     return 0;
 }
