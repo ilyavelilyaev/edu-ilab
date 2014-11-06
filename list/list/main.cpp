@@ -10,7 +10,7 @@
 
 int main(int argc, const char * argv[]) {
     List x;
-    for (int i = 0; i < 500000; i++) {
+    for (int i = 0; i < 10000; i++) {
         x.push_front(i);
         x.push_back(i);
     }
@@ -47,9 +47,8 @@ int main(int argc, const char * argv[]) {
         std::cout << x[i] << " ";
     }
     
-    List x1; //= x;
+    List x1 = x;
     
-    x1 = x;
     
     std::cout << "\n Now new List x1" << std::endl;
     
@@ -57,7 +56,20 @@ int main(int argc, const char * argv[]) {
         std::cout << x1[i] << " ";
     }
     
-    std::cout << "\nended testing\n";
+    
     x.clear();
+    
+    
+    try {
+        std::cout << x[5];
+    } catch (std::exception &e) {
+        std::cout << e.what();
+    }
+    try {
+        x.pop_back();
+    } catch (std::exception &e) {
+        std::cout << e.what();
+    }
+    std::cout << "\nended testing\n";
     return 0;
 }

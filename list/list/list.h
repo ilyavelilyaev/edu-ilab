@@ -13,6 +13,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "listExeptions.h"
+
 class Node {
 public:
     int value;
@@ -27,6 +29,7 @@ private:
     Node *back_node;
 public:
     List();
+    List(List &obj);
     void push_front(const int &newItem);
     void push_back(const int &newItem);
     void pop_front();

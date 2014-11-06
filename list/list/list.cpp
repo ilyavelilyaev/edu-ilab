@@ -21,7 +21,7 @@ List::~List() {
 void List::push_front(const int &newItem) {
     Node *newNode = new Node;
     newNode->value = newItem;
-    if (front_node == NULL) {
+    if (empty()) {
         front_node = newNode;
         front_node->prev = NULL;
         front_node->next = NULL;
@@ -41,7 +41,7 @@ void List::push_front(const int &newItem) {
 void List::push_back(const int &newItem) {
     Node *newNode = new Node;
     newNode->value = newItem;
-    if (back_node == NULL) {
+    if (empty()) {
         front_node = newNode;
         front_node->prev = NULL;
         front_node->next = NULL;
@@ -58,35 +58,43 @@ void List::push_back(const int &newItem) {
 }
 
 void List::pop_front() {
+    if (empty()) throw list_empty();
     if (front_node->next != NULL) {
         front_node = front_node->next;
         delete front_node->prev;
         front_node->prev = NULL;
         size_of_list--;
     } else {
-        
+        delete front_node;
+        size_of_list = 0;
     }
 }
 
 void List::pop_back() {
+    if (empty()) throw list_empty();
     if (back_node->prev != NULL) {
         back_node = back_node->prev;
         delete back_node->next;
         back_node->next = NULL;
         size_of_list--;
+    } else {
+        delete back_node;
+        size_of_list = 0;
     }
 }
 
 int& List::front() {
+    if (empty()) throw list_empty();
     return front_node->value;
 }
 
 int& List::back() {
+    if (empty()) throw list_empty();
     return back_node->value;
 }
 
 bool List::empty() {
-    if (size_of_list == 0) return true;
+    if (size() == 0) return true;
     return false;
 }
 
@@ -95,6 +103,7 @@ long long List::size() {
 }
 
 void List::insert(long long position, const int &val) {
+    if (position > size()) throw out_of_size();
     if (position == 0) {
         push_front(val);
         return;
@@ -118,6 +127,7 @@ void List::insert(long long position, const int &val) {
 }
 
 void List::erase(long long position) {
+    if (position >= size()) throw out_of_size();
     if (position == 0) {
         pop_front();
         return;
@@ -137,7 +147,7 @@ void List::erase(long long position) {
 }
 
 void List::clear() {
-    if (size_of_list != 0) {
+    if (!empty()) {
         std::cout << "Cleaning memory... Please wait.\n";
         Node *node = NULL;
         if (front_node != NULL) node = front_node->next;
@@ -154,6 +164,7 @@ void List::clear() {
 }
 
 int& List::operator[](long long position) {
+    if (position >= size()) throw out_of_size();
     if (position == 0) return(front());
     if (position == size_of_list - 1) return(back());
     Node *temp = front_node;
@@ -170,4 +181,13 @@ List& List::operator=(List &x) {
         push_back(x[i]);
     }
     return *this;
+}
+
+List::List (List &x) {
+    size_of_list = 0;
+    front_node = NULL;
+    back_node = NULL;
+    for (long long i = 0; i < x.size(); i++) {
+        push_back(x[i]);
+    }
 }
