@@ -15,3 +15,7 @@ const char *list_empty::what() const throw () {
 const char *out_of_size::what() const throw () {
     return "ERROR!! Out of size\n";
 }
+
+const char *no_such_filetype::what() const throw () {
+    return "ERROR!! Unknown filetype\n";
+}

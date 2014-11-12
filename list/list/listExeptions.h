@@ -21,5 +21,9 @@ public:
     const char *what() const throw ();
 };
 
+class no_such_filetype : public std::exception {
+public:
+    const char *what() const throw ();
+};
 
 #endif /* defined(LISTEXEPTIONS) */

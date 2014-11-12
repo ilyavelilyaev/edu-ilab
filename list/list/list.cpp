@@ -8,6 +8,41 @@
 
 #include "list.h"
 
+void FilesNode::setName(std::string new_name) {
+    name = new_name;
+}
+
+void FilesNode::setPath(std::string new_path) {
+    path = new_path;
+}
+
+void FilesNode::setType(unsigned char d_type) {
+    if (d_type == '\x04') type = "dir";
+    else if (d_type == '\b') type = "file";
+    else throw no_such_filetype();
+}
+
+std::string FilesNode::getName() {
+    return name;
+}
+
+std::string FilesNode::getPath() {
+    return path;
+}
+
+std::string FilesNode::getType() {
+    return type;
+}
+
+FilesNode& FilesNode::operator=(FilesNode &x) {
+    if (this == &x) return *this;
+    name = x.getName();
+    path = x.getPath();
+    type = x.getType();
+    return *this;
+}
+
+
 List::List() {
     size_of_list = 0;
     front_node = NULL;
@@ -18,9 +53,7 @@ List::~List() {
     clear();
 }
 
-void List::push_front(const int &newItem) {
-    Node *newNode = new Node;
-    newNode->value = newItem;
+void List::push_front(Node *newNode) {
     if (empty()) {
         front_node = newNode;
         front_node->prev = NULL;
@@ -38,9 +71,7 @@ void List::push_front(const int &newItem) {
     
 }
 
-void List::push_back(const int &newItem) {
-    Node *newNode = new Node;
-    newNode->value = newItem;
+void List::push_back(Node *newNode) {
     if (empty()) {
         front_node = newNode;
         front_node->prev = NULL;
@@ -83,14 +114,14 @@ void List::pop_back() {
     }
 }
 
-int& List::front() {
+Node* List::front() {
     if (empty()) throw list_empty();
-    return front_node->value;
+    return front_node;
 }
 
-int& List::back() {
+Node* List::back() {
     if (empty()) throw list_empty();
-    return back_node->value;
+    return back_node;
 }
 
 bool List::empty() {
@@ -102,18 +133,16 @@ long long List::size() {
     return size_of_list;
 }
 
-void List::insert(long long position, const int &val) {
+void List::insert(long long position, Node *newNode) {
     if (position > size()) throw out_of_size();
     if (position == 0) {
-        push_front(val);
+        push_front(newNode);
         return;
     }
     if (position == size_of_list) {
-        push_back(val);
+        push_back(newNode);
         return;
     }
-    Node *newNode = new Node;
-    newNode->value = val;
     Node *temp = front_node;
     for (long long i = 0; i < position; i++) {
         temp = temp->next;
@@ -140,15 +169,16 @@ void List::erase(long long position) {
     for (long long i = 0; i < position; i++) {
         temp = temp->next;
     }
-    temp->prev->next = temp->next;
-    temp->next->prev = temp->prev;
+    Node *temp1 = temp->prev;
+    Node *temp2 = temp->next;
+    temp1->next = temp->next;
+    temp2->prev = temp->prev;
     delete temp;
     size_of_list--;
 }
 
 void List::clear() {
     if (!empty()) {
-        std::cout << "Cleaning memory... Please wait.\n";
         Node *node = NULL;
         if (front_node != NULL) node = front_node->next;
         Node *node1 = front_node;
@@ -163,7 +193,7 @@ void List::clear() {
     }
 }
 
-int& List::operator[](long long position) {
+Node* List::operator[](long long position) {
     if (position >= size()) throw out_of_size();
     if (position == 0) return(front());
     if (position == size_of_list - 1) return(back());
@@ -171,7 +201,7 @@ int& List::operator[](long long position) {
     for (long long i = 0; i < position; i++) {
         temp = temp->next;
     }
-    return temp->value;
+    return temp;
 }
 
 List& List::operator=(List &x) {

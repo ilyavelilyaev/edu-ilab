@@ -12,15 +12,16 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
 #include "listExeptions.h"
 
 class Node {
 public:
-    int value;
     Node *next;
     Node *prev;
 };
+
 
 class List {
 private:
@@ -30,20 +31,44 @@ private:
 public:
     List();
     List(List &obj);
-    void push_front(const int &newItem);
-    void push_back(const int &newItem);
+    void push_front(Node *newNode);
+    void push_back(Node *newNode);
     void pop_front();
     void pop_back();
-    int& front();
-    int& back();
+    Node* front();
+    Node* back();
     bool empty();
     long long size();
-    void insert(long long position, const int &val); //position is counting from front
+    void insert(long long position, Node *newNode); //position is counting from front
     void erase(long long position);
     void clear();
-    int& operator[](long long position);
+    Node* operator[](long long position);
     List& operator=(List &x);
     ~List();
 };
+
+
+class FilesNode : public Node {
+private:
+    std::string name;
+    std::string path; //with name
+    std::string type; //"dir" or "file"
+public:
+    void setName(std::string new_name);
+    void setPath(std::string new_path);
+    void setType(unsigned char d_type);
+    std::string getName();
+    std::string getPath();
+    std::string getType();
+    FilesNode& operator=(FilesNode &x);
+};
+
+
+class ListNode : public Node {
+public:
+    List *list;
+    char firstLetter;
+};
+
 
 #endif
