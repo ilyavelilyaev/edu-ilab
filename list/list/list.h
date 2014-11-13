@@ -38,7 +38,7 @@ public:
     Node* front();
     Node* back();
     bool empty();
-    long long size();
+    long long& size();
     void insert(long long position, Node *newNode); //position is counting from front
     void erase(long long position);
     void clear();

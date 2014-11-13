@@ -18,8 +18,8 @@ void FilesNode::setPath(std::string new_path) {
 
 void FilesNode::setType(unsigned char d_type) {
     if (d_type == '\x04') type = "dir";
-    else if (d_type == '\b') type = "file";
-    else throw no_such_filetype();
+    else type = "file";
+   // else throw no_such_filetype();
 }
 
 std::string FilesNode::getName() {
@@ -129,7 +129,7 @@ bool List::empty() {
     return false;
 }
 
-long long List::size() {
+long long& List::size() {
     return size_of_list;
 }
 
