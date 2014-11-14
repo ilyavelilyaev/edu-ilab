@@ -16,6 +16,7 @@ void readDirectory (List &list_of_files, const char * path) {
     struct dirent *dirs;
     FilesNode *file = NULL;
     if (dir == NULL) {
+        std::cerr << path << "\n";
         perror("ERROR!!!");
         return;
     }
@@ -67,83 +68,60 @@ int main(int argc, const char * argv[]) {
     
     readDirectory(list_of_files, my_start_dir);
     
-  
-
     std::cout << "Now deleting all files without \"" << my_substr << "\" in its name\n";
     
-  //  std::stack<long long> items_to_erase;
-    FilesNode *temp_files_node = (FilesNode *)list_of_files.front(); 
-    for (long long i = 0; i < list_of_files.size(); i++) {
-        if (i % 100 == 0)  std::cout << "done " << i << " out of " << list_of_files.size() << "\n";
-       // FilesNode *temp = ((FilesNode *)list_of_files[i]);
-        std::size_t found = temp_files_node->getName().find(my_substr);
-        if (found == std::string::npos || temp_files_node->getType() == "dir") {
-         //   items_to_erase.push(i);
-          if (i == 0) {
-              list_of_files.pop_front();
-              i--;
-          } else if (i == list_of_files.size() - 1) {
-              list_of_files.pop_back();
-              i--;
-          } else {
-              Node *temp1 = temp_files_node->prev;
-              Node *temp2 = temp_files_node->next;
-              temp1->next = temp_files_node->next;
-              temp2->prev = temp_files_node->prev;
-              //delete temp_files_node;
-              list_of_files.size()--; 
-              i--;
-             /* FilesNode *temp_files_node2 = temp_files_node;
-              temp_files_node->prev->next = temp_files_node->next;
-              temp_files_node = temp_files_node2;
-              temp_files_node->next->prev = (FilesNode*)temp_files_node->prev;
-              delete(temp_files_node2); */
-         }
-       }
-        if (i != list_of_files.size() - 1) {
-             Node *temp3 = temp_files_node;
-             temp_files_node = (FilesNode *)(temp_files_node->next);
-             delete temp3;
-        }
-    }
-   /* 
-    long long size = items_to_erase.size();
+    List list_of_files_2;
     
-    for (long long i = 0; i < size; i++) {
-        list_of_files.erase(items_to_erase.top());
-        items_to_erase.pop();
+    FilesNode *temp_files_node = (FilesNode *)list_of_files.front();
+    for (long long i = 0; i < list_of_files.size(); i++) {
+        std::size_t found = temp_files_node->getName().find(my_substr);
+        if (found != std::string::npos && temp_files_node->getType() != "dir") {
+            FilesNode *temp_files_node_2 = new FilesNode;
+            *temp_files_node_2 = *temp_files_node;
+            list_of_files_2.push_front(temp_files_node_2);
+        }
+        if (i != list_of_files.size() - 1)
+            temp_files_node = (FilesNode *)temp_files_node->next;
     }
-    */
+    
+    
+    
     std::cout << "Now creating list of lists of files\n";
     
     List new_list;
     
-    temp_files_node = (FilesNode *)list_of_files.front();
-
-    for (long long i = 0; i < list_of_files.size(); i++) {
-       // FilesNode *temp_files_node = new FilesNode;
-       //*temp_files_node = *(FilesNode *)(list_of_files[i]);
+    temp_files_node = (FilesNode *)list_of_files_2.front();
+    
+    temp_files_node = (FilesNode *)list_of_files_2.front();
+    for (long long i = 0; i < list_of_files_2.size(); i++) {
+       
         char letter = temp_files_node->getName()[0];
         bool exists_such_list = false;
         for (int j = 0; j < new_list.size(); j++) {
             if (((ListNode *)(new_list[j]))->firstLetter == letter) {
                 exists_such_list = true;
-                ((ListNode *)(new_list[j]))->list->push_front(temp_files_node);
+                FilesNode *temp_files_node_2 = new FilesNode;
+                *temp_files_node_2 = *temp_files_node;
+                ((ListNode *)(new_list[j]))->list->push_front(temp_files_node_2);
             }
         }
         if (exists_such_list == false) {
             ListNode *tmp_node = new ListNode;
             tmp_node->firstLetter = letter;
             List *tmp_list = new List;
-            tmp_list->push_front(temp_files_node);
+            FilesNode *temp_files_node_2 = new FilesNode;
+            *temp_files_node_2 = *temp_files_node;
+            tmp_list->push_front(temp_files_node_2);
             tmp_node->list = tmp_list;
             new_list.push_front(tmp_node);
         }
-        if (i != list_of_files.size() - 1)
+        if (i != list_of_files_2.size() - 1)
              temp_files_node = (FilesNode *)(temp_files_node->next);        
     }
+    
     ListNode *temp_list_node = (ListNode *)new_list.front();   
     FilesNode *temp_list_files_node = NULL;
+    
     for (long long i = 0; i < new_list.size(); i++) {
         std::cout << "letter: " << temp_list_node->firstLetter << "\nfiles:\n";
         List *temp_list = temp_list_node->list;

@@ -26,9 +26,10 @@ public:
 class List {
 private:
     long long size_of_list;
+   
+public:
     Node *front_node;
     Node *back_node;
-public:
     List();
     List(List &obj);
     void push_front(Node *newNode);

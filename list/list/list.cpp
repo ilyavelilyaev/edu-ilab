@@ -179,16 +179,23 @@ void List::erase(long long position) {
 
 void List::clear() {
     if (!empty()) {
-        Node *node = NULL;
-        if (front_node != NULL) node = front_node->next;
-        Node *node1 = front_node;
-        while (node1 != NULL) {
-            delete node1;
-            node1 = node;
-            if (node != NULL) node = node->next;
+        
+        while (front_node->next != NULL && front_node != front_node->next->next) {
+            front_node = front_node->next;
+            delete front_node->prev;
+            front_node->prev = NULL;
         }
+        if (front_node->next != NULL) {
+            if (front_node == front_node->next->next) {
+                delete front_node;
+                front_node->next = NULL;
+                front_node = NULL;
+            }
+        }
+        delete front_node;
         front_node = NULL;
-        back_node = NULL;
+        
+        
         size_of_list = 0;
     }
 }
