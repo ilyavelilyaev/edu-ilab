@@ -18,7 +18,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
     input_file >> temp_string;
     char s[1000];
     strcpy(s, temp_string.c_str());
-    sscanf(temp_string.c_str(), "%02d", &temp_code);
+    sscanf(temp_string.c_str(), "%02d", (int *)(&temp_code));
     temp_string.erase(0, 2);
     strcpy(s, temp_string.c_str());
     while (temp_code != END) {
@@ -220,7 +220,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
             temp_mark[len] = 0;
             output_file << temp_mark << ":\n";
         }
-        sscanf(temp_string.c_str(), "%02d", &temp_code);
+        sscanf(temp_string.c_str(), "%02d", (int *)(&temp_code));
         temp_string.erase(0, 2);
     }
     output_file << "END\n";
