@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 
-typedef double stack_element_type;
+typedef int stack_element_type;
 
 typedef struct {
     stack_element_type *data;

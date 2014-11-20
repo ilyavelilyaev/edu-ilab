@@ -14,21 +14,28 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
     std::ofstream output_file;
     output_file.open(output_file_name);
     CODES temp_code = NO_CODE;
-    std::string temp_string;
-    input_file >> temp_string;
+    std::string temp_string = "";
+    while (!input_file.eof()) {
+        temp_string += (char)input_file.get();
+    }
     char s[1000];
     strcpy(s, temp_string.c_str());
-    sscanf(temp_string.c_str(), "%02d", (int *)(&temp_code));
-    temp_string.erase(0, 2);
+    sscanf(temp_string.c_str(), "%c", (char *)(&temp_code));
+    temp_string.erase(0, 1);
     strcpy(s, temp_string.c_str());
     while (temp_code != END) {
         if (temp_code == PUSH_CODE) {
-            int argument;
-            sscanf(temp_string.c_str(), "%d!", &argument);
-            char temp_arg_str[10];
-            sprintf(temp_arg_str, "%d", argument);
-            temp_string.erase(0, strlen(temp_arg_str) + 1);
-            strcpy(s, temp_string.c_str());
+            double argument;
+            std::string arg_str_temp = "";
+            char tmp = 0;
+            sscanf(temp_string.c_str(), "%c", &tmp);
+            temp_string.erase(0, 1);
+            while (tmp != (char)END_OF_INPUT) {
+                arg_str_temp += tmp;
+                sscanf(temp_string.c_str(), "%c", &tmp);
+                temp_string.erase(0, 1);
+            }
+            sscanf(arg_str_temp.c_str(), "%lg", &argument);
             output_file << "PUSH " << argument << "\n";
         }
         if (temp_code == PUSH_A_CODE) {
@@ -89,7 +96,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JMP " << temp_mark << "\n";
@@ -101,7 +108,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JEA " << temp_mark << "\n";
@@ -113,7 +120,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JEB " << temp_mark << "\n";
@@ -125,7 +132,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JEC " << temp_mark << "\n";
@@ -137,7 +144,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JED " << temp_mark << "\n";
@@ -149,7 +156,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JNEA " << temp_mark << "\n";
@@ -161,7 +168,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JNEB " << temp_mark << "\n";
@@ -173,7 +180,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JNEC " << temp_mark << "\n";
@@ -185,7 +192,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "JNED " << temp_mark << "\n";
@@ -200,7 +207,7 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << "CALL " << temp_mark << "\n";
@@ -215,13 +222,13 @@ void disassemble(std::ifstream &input_file, const char* output_file_name) {
                 sscanf(temp_string.c_str(), "%c", &temp_mark[len]);
                 temp_string.erase(0,1);
                 len++;
-            } while (temp_mark[len - 1] != '!');
+            } while (temp_mark[len - 1] != (char)END_OF_INPUT);
             len --;
             temp_mark[len] = 0;
             output_file << temp_mark << ":\n";
         }
-        sscanf(temp_string.c_str(), "%02d", (int *)(&temp_code));
-        temp_string.erase(0, 2);
+        sscanf(temp_string.c_str(), "%c", (char *)(&temp_code));
+        temp_string.erase(0, 1);
     }
     output_file << "END\n";
     output_file.close();

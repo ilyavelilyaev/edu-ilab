@@ -17,7 +17,7 @@
 
 void assemble(std::ifstream &input_file, const char* output_file_name);
 
-std::string generateCodeLine (const std::string asmCode);
+std::string generateCodeLine (const std::string asmCode, int line);
 
 
 #endif /* defined(ASSEMBLER_H) */

@@ -42,6 +42,7 @@ enum CODES {
     CALL_CODE,
     RET_CODE,
     MARK_CODE,
+    END_OF_INPUT,
     END
 };
 
