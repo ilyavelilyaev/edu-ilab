@@ -25,6 +25,7 @@ public:
     element_t & top();
     void push(element_t content);
     void pop();
+    element_t& operator[](std::size_t pos);
     ~Stack();
 };
 

@@ -44,6 +44,11 @@ void Stack::pop() {
     size_of_stack --;
 }
 
+element_t & Stack::operator[](std::size_t pos) {
+    return data[pos];
+}
+
+
 Stack::~Stack() {
     free(data);
 }
