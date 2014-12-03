@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ilya Velilyaev. All rights reserved.
 //
 
-#include "Emulator.h"
+#include "emulator.h"
 
 Processor::Processor() {
     regA = 0;
