@@ -184,6 +184,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JMP_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -202,6 +203,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JEA_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -221,6 +223,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JEB_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -240,6 +243,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JEC_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -259,6 +263,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JED_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -278,6 +283,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JNEA_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -297,6 +303,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JNEB_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -316,6 +323,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JNEC_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -335,6 +343,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == JNED_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -357,6 +366,7 @@ void Processor::decode(int &pos) {
     }
     if (commands[pos] == CALL_CODE) {
         std::string temp_mark = "";
+        temp_mark += (char) MARK_CODE;
         pos++;
         if (commands[pos] == END_OF_INPUT)
             throw "NO ARGUMENT TO JUMP";
@@ -379,6 +389,9 @@ void Processor::decode(int &pos) {
         return;
     }
     if (commands[pos] == MARK_CODE) {
+        while (commands[pos] != END_OF_INPUT) {
+            pos++;
+        }
         return;
     }
     
@@ -396,3 +409,4 @@ void Processor::emulate () {
 Processor::~Processor() {
     
 }
+

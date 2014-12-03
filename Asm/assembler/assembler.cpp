@@ -35,7 +35,7 @@ std::string generateCodeLine (const std::string asmCode, int line) {
         if (argument[0] == 'D') {
             sprintf(temp_c_str, "%c", (char)PUSH_D_CODE);
         }
-        if ('0' <= argument[0] && argument[0] <= '9') {
+        if (('0' <= argument[0] && argument[0] <= '9') || (argument[0] == '-' && '0' <= argument[1] && argument[1] <= '9')) {
             double temp_double = 0;
             sscanf(argument.c_str(), "%lg", &temp_double);
             sprintf(temp_c_str, "%c%lg%c",(char)PUSH_CODE, temp_double, (char)END_OF_INPUT);
